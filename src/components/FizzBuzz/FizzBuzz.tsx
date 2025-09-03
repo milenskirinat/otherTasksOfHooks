@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import "./FizzBox.css";
 import "./BuzzBox.css";
 import "./FizzBuzzBox.css";
+import Box from "./Box.tsx";
+import Title from "./Title.tsx";
 
 export default function FizzBuzz() {
   const [num, setNum] = useState(0);
@@ -12,13 +14,13 @@ export default function FizzBuzz() {
 
     for (let i = 0; i <= num; i++) {
       if (i % 3 === 0 && i % 5 === 0) {
-        resArray.push({ type: "FizzBuzz", value: "FizzBuzz" });
+        resArray.push("FizzBuzz");
       } else if (i % 3 === 0) {
-        resArray.push({ type: "Fizz", value: "Fizz" });
+        resArray.push("Fizz");
       } else if (i % 5 === 0) {
-        resArray.push({ type: "Buzz", value: "Buzz" });
+        resArray.push("Buzz");
       } else {
-        resArray.push({ type: "number", value: i });
+        resArray.push(i);
       }
     }
 
@@ -33,30 +35,10 @@ export default function FizzBuzz() {
           setNum(Number(e.target.value));
         }}
       />
-      <p>Entered number: {num}</p>
+      <Title>{num}</Title>
       <div>
         {visibleArray.map((element: any, index) => {
-          if (element.type === "Fizz") {
-            return (
-              <p key={index} className="FizzBox">
-                {element.value}
-              </p>
-            );
-          } else if (element.type === "Buzz") {
-            return (
-              <p key={index} className="BuzzBox">
-                {element.value}
-              </p>
-            );
-          } else if (element.type === "FizzBuzz") {
-            return (
-              <p key={index} className="FizzBuzzBox">
-                {element.value}
-              </p>
-            );
-          } else {
-            return <p key={index}>{element.value}</p>;
-          }
+          return <Box key={index} element={element} />;
         })}
       </div>
     </div>
